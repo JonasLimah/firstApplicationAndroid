@@ -24,14 +24,27 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             calculate()
         }
     }
-    private fun calculate(){
-        val distance = binding.editDistance.text.toString().toDouble()//getting distance value
-        val price = binding.editPrice.text.toString().toDouble()//getting price value
-        val autonomy = binding.editAutonomy.text.toString().toDouble()//getting autonomy value
-        val totalValue = (distance*price)/autonomy
-        binding.textResult.text = " R$ ${"%.2f".format(totalValue)}"// sempre seleciona o id pelo binding
+    private fun isValid(): Boolean {
+        return  (binding.editDistance.text.toString() != "" &&
+                binding.editPrice.text.toString() != "" &&
+                binding.editAutonomy.text.toString() != "" &&
+                binding.editAutonomy.text.toString().toInt() != 0
 
-        //Toast.makeText(this,totalValueStr,Toast.LENGTH_SHORT).show()
+                )
+    }
+    private fun calculate(){
+        if(isValid()){
+            val distance = binding.editDistance.text.toString().toDouble()//getting distance value
+            val price = binding.editPrice.text.toString().toDouble()//getting price value
+            val autonomy = binding.editAutonomy.text.toString().toDouble()//getting autonomy value
+            val totalValue = (distance*price)/autonomy
+            binding.textResult.text = " R$ ${"%.2f".format(totalValue)}"// sempre seleciona o id pelo binding
+        }else{
+            Toast.makeText(this,"Digite todos os campos",Toast.LENGTH_SHORT).show()
+        }
+
+
+
 
     }
 }
